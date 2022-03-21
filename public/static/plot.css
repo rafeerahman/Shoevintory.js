@@ -1,0 +1,73 @@
+.plot {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+}
+.chart {
+    height: 500px;
+    width: 800px;
+    border: 1px solid black;
+    float: left;
+    margin-bottom: 20px;
+    
+}
+
+.legend {
+    
+    height: 100px;
+    width: 100px;
+    float: left;
+    position: relative;
+    margin-top: 250px;
+    
+}
+
+.blue {
+    border: 1px solid none;
+    display: inline-block;
+    width: 20px;
+    height: 5px;
+    background: blue;
+}
+
+.black {
+    border: 1px solid none;
+    display: inline-block;
+    width: 20px;
+    height: 5px;
+    background: black;
+}
+
+.hovering { 
+    border: 1px solid black;
+    height: 100px;
+    width: 100px;
+    font-size: 20px;
+    float: left;
+    position: absolute;
+}
+
+pre code {
+    background-color: rgb(58, 52, 52);
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    width: 80%;
+    margin: 0 auto;
+    color: rgb(26, 192, 26);
+}
+
+h1 {
+    font-size: 42px;
+}
+
+h2 {
+    text-decoration: underline;
+    font-size: 32px;
+    font-weight: 500;
+}
+
