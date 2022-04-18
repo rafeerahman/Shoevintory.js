@@ -16,10 +16,8 @@ In your HTML head, add the following
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../app.css">
     <link rel="stylesheet" href="../plot.css">
-    <link rel="stylesheet" href="./examples.css">
 
     <script src="../Shoevintory.js"></script>
-    <script src="./examples.js"></script>
 </head>
 ```
-In a seperate javascript file, you can initialize a new shoevintory (see instructions in API). Then you can use its various methods, and link your new javascript file within your HTML. See more examples in the examples page.
+In a seperate javascript file, you can initialize a new shoevintory (see instructions in API). Then you can use its various methods, and link your new javascript file within your HTML. An example can be found in the examples.html file in the ZIP shoeventory folder. See more examples in the examples page.
