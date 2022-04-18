@@ -3,11 +3,9 @@ const log = console.log;
 
 
 (function (global, document) {
-    /*
-        sneakers: List[Shoe]
-    */
-    const stylesheet = document.styleSheets[0]
-    
+    const styleSheet = document.createElement('style')
+    document.head.appendChild(styleSheet)
+
     function ShoevintoryFactory() {
         this.instances = [];
     }
@@ -32,20 +30,12 @@ const log = console.log;
     // Incase a shoe was dragged to another table
     Shoevintory.prototype.updateSneakers = function (containerId, dragId) {
         const table = this.table
-        console.log(table.table.firstElementChild)
 
         if (table.table.firstElementChild.id !== containerId) {
-            console.log(parseInt(dragId))
-            console.log(this.sneakers)
             const movedSneaker = this.sneakers[parseInt(dragId) - 1]
-            console.log(movedSneaker)
             this.sneakers.splice(dragId - 1, 1)
-            console.log(this.shoevintoryFactory)
             const otherTable = this.shoevintoryFactory.get(containerId)
-            console.log(containerId)
-            console.log(otherTable.sneakers)
             otherTable.sneakers.push(movedSneaker)
-            console.log(otherTable.sneakers)
         }
     }
     
@@ -236,8 +226,6 @@ const log = console.log;
             
             this.svg.appendChild(circle)
             this.svg.appendChild(line)
-            // console.log(this.x1)
-            // console.log(this.y1)
 
             this.x1 = x2*100
             this.y1 = SVGHEIGHT - y2
@@ -289,6 +277,7 @@ const log = console.log;
             }
 
             this.table.className = "inventoryTable"
+            this.table.id = "inventoryTable"
             this.table.innerHTML = `
                 <div class="table-body" id=${[...document.getElementsByClassName("table-body")].length}>
                     <div class="table-header">
@@ -311,7 +300,7 @@ const log = console.log;
 
                 // Initializing col at index margins
                 if (i !== 0) {
-                    stylesheet.insertRule(`.col${i+1} { margin-left: 20px;}`, 0);
+                    styleSheet.innerText = `.col${i+1} { margin-left: 20px;}`;
                 }
 
                 header.appendChild(p)
@@ -497,9 +486,6 @@ const log = console.log;
                     
                     // After dragging, update row id's
                     this.updateRowsWithId(row.parentElement)
-                    
-                    console.log(row.parentElement.id)
-                    console.log(row.id)
 
                     Shoevintory.prototype.updateSneakers.call(this.shoevintory, row.parentElement.id, row.id)
                 })
@@ -532,7 +518,7 @@ const log = console.log;
             
             // Insert filtered DOM rows.
             const filteredShoes = shoes.filter(shoe => shoe.brand === brandName)
-            console.log(filteredShoes)
+            
             filteredShoes.forEach(shoe => {
                 requestAnimationFrame(() => {
                     this.insertRow(shoe)
