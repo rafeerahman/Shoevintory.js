@@ -1,24 +1,106 @@
 'use strict'
-
 const log = console.log;
+
 
 (function (global, document) {
     /*
         sneakers: List[Shoe]
     */
-    function Shoevintory() {
+    const stylesheet = document.styleSheets[0]
+    
+    function ShoevintoryFactory() {
+        this.instances = [];
+    }
+
+    ShoevintoryFactory.prototype.create = function() {
+        let shoevintory = new Shoevintory(this);
+        this.instances.push(shoevintory);
+        return shoevintory
+    }
+
+    ShoevintoryFactory.prototype.get = function(i) {
+        return this.instances[i]
+    }
+
+    function Shoevintory(factory) {
+        this.shoevintoryFactory = factory
         this.sneakers = []
         this.table = null;
         this.plot = null;
     }
 
-    Shoevintory.prototype.insertTable = function () {
-        this.table = new Table();
+    // Incase a shoe was dragged to another table
+    Shoevintory.prototype.updateSneakers = function (containerId, dragId) {
+        const table = this.table
+        console.log(table.table.firstElementChild)
+
+        if (table.table.firstElementChild.id !== containerId) {
+            console.log(parseInt(dragId))
+            console.log(this.sneakers)
+            const movedSneaker = this.sneakers[parseInt(dragId) - 1]
+            console.log(movedSneaker)
+            this.sneakers.splice(dragId - 1, 1)
+            console.log(this.shoevintoryFactory)
+            const otherTable = this.shoevintoryFactory.get(containerId)
+            console.log(containerId)
+            console.log(otherTable.sneakers)
+            otherTable.sneakers.push(movedSneaker)
+            console.log(otherTable.sneakers)
+        }
+    }
+    
+    Shoevintory.prototype.insertTable = function (tableProps, parentElement) {
+        this.table = new Table(tableProps, this, parentElement);
+        if (tableProps.data) { 
+            tableProps.data.forEach(shoe => {
+                this.sneakers.push(shoe)
+            })
+        }
+    }
+
+    Shoevintory.prototype.getTable = function () {
+        return this.table;
+    }
+
+    Shoevintory.prototype.getShoesArray = function () {
+        return this.sneakers;
     }
 
     Shoevintory.prototype.insertRow = function (shoeData) {
         this.sneakers.push(shoeData)
-        this.table.insertRow(shoeData)
+        requestAnimationFrame(() => {this.table.insertRow(shoeData)})
+        
+    }
+
+    Shoevintory.prototype.deleteRow = function (rowNum) {
+        requestAnimationFrame(() => {
+            const rowId = this.table.deleteRow(rowNum)
+            this.sneakers.splice(rowId, 1)
+        })
+    }
+
+    Shoevintory.prototype.editRow = function (rowNum, newData) {
+        this.table.editRow(rowNum, newData)
+    }
+
+    Shoevintory.prototype.edited = function (rowNum, newData) {
+        const shoe = this.sneakers[rowNum - 1]
+        Object.keys(newData).forEach((key) => {
+            if (key in shoe) {
+                shoe[key] = newData[key]
+            } else {
+                throw new Error("One of the properties in newData does not match the correct format.")
+            }
+        })
+
+        return shoe
+    }
+
+
+    Shoevintory.prototype.makeDraggable = function () {
+        requestAnimationFrame(() => {
+            this.table.makeDraggable();
+        })
     }
 
     Shoevintory.prototype.totalSales = function () {
@@ -38,15 +120,36 @@ const log = console.log;
     }
 
     Shoevintory.prototype.totalInventory = function () {
-        this.sneakers.reduce((total) => {
+        const total = this.sneakers.reduce((total) => {
             return total + 1
         }, 0)
+
+        return total
     }
 
-    Shoevintory.prototype.chartSpendingsAndProfits = function () {
+    Shoevintory.prototype.totalProfits = function () {
+        return Shoevintory.prototype.totalSales.call(this) - Shoevintory.prototype.totalSpendings.call(this)
+    }
+
+    Shoevintory.prototype.filterByBrand = function (brandName) {
+        this.table.filterByBrand(brandName, this.sneakers)
+    }
+
+    Shoevintory.prototype.filterReset = function () {
+        this.table.filterReset(this.sneakers)
+    }
+
+    Shoevintory.prototype.sortBySalePrice = function (ascOrDesc) {
+        this.table.sort("salePrice", ascOrDesc, this.sneakers)
+    }
+
+    Shoevintory.prototype.sortByCost = function (ascOrDesc) {
+        this.table.sort("cost", ascOrDesc, this.sneakers)
+    }
+
+    Shoevintory.prototype.chartSalesVsSpendings = function () {
         const plot = new Plot()
-        let x1 = 0
-        let y2 = 0
+        
         this.sneakers.map((shoe, i) => {
             i++
             plot.plotPoint(
@@ -64,15 +167,6 @@ const log = console.log;
         })
 
         
-    }
-
-    class Shoe { 
-        constructor(sneaker, purchaseDate, cost, salePrice) {
-            this.sneakerName = sneaker;
-            this.purchaseDate = purchaseDate;
-            this.cost = cost;
-            salePrice ? this.salePrice = salePrice : null;
-        }
     }
 
     class Plot {
@@ -106,34 +200,12 @@ const log = console.log;
             document.body.appendChild(this.plot)
             this.svg.setAttribute("height", "500")
             this.svg.setAttribute("width", "800")  
-            // Hardcoded for now will fix later
-            // this.plotPoint(1, 150, this.svg)
-            // this.plotPoint(2, 250, this.svg)
 
         }
         
         plotPoint(x, y, color) {
             const chart = document.querySelector(".chart");
-            // const body = document.body.getBoundingClientRect()
-            // const plotBorder = chart.getBoundingClientRect()
             
-            // // borders of plot should be max x y value of data...
-
-            // const x_pos_width = 100; // if x is discrete
-            
-            // // Origin 
-            // const offsetY = plotBorder.bottom - body.top 
-            // const offsetX = plotBorder.left - body.left
-            
-            // const y2 = offsetY - y 
-            // const x2 = offsetX + x*x_pos_width
-
-            // const point = document.createElement('div')
-            // point.style = 'position: absolute; width: 5px; height: 5px; border-radius: 50%; background-color: black;'
-            // point.style.left = `${x2}px`
-            // point.style.top = `${y2}px`
-            
-            // chart.appendChild(point)
             this.drawLine(this.x1, this.y1, x, y, color)
             chart.appendChild(this.svg)
             
@@ -195,53 +267,127 @@ const log = console.log;
             })
         }
     }
-    
+
+    // {data: [{shoe1}, {shoe2}], columnTitles: ["Sneaker", "Date Purchased", "Cost", "Sale price"], includeProfitColumn: true}
     class Table {
-        constructor() {
+        constructor(tableProps, shoevintory, parentElement) {
+            this.shoevintory = shoevintory
             this.headers = []
-            this.table = document.createElement("div")
+            
+            this.table = document.createElement('div')
+            this.tableProps = tableProps;
+            this.isDraggable = false;
+
+            
             // Initializing
-            this.initTable()
+            this.initTable(this.tableProps, parentElement)
         }
 
-        initTable () {
+        initTable (tableProps, parentElement) {
+            if (this.tableProps.include.profits) {
+                this.tableProps.columnTitles.push("Profits")
+            }
+
             this.table.className = "inventoryTable"
             this.table.innerHTML = `
-                <div class="table-body">
+                <div class="table-body" id=${[...document.getElementsByClassName("table-body")].length}>
                     <div class="table-header">
-                        <p class="col1">Sneaker</p>
-                        <p class="col2">Date purchased</p>
-                        <p class="col3">Cost</p>
-                        <p class="col4">Sale price</p>
                     </div>
                 </div>
             `
-            document.body.appendChild(this.table)
+            try {
+                TableInitError(this.tableProps)
+            } catch (e) {
+                throw e
+            }
+
+            // Column data
+            const header = this.table.getElementsByClassName("table-header")[0]
+
+            this.tableProps.columnTitles.map((col, i) => {
+                const p = document.createElement("p")
+                p.textContent = col
+                p.classList.add("col" + (i+1))
+
+                // Initializing col at index margins
+                if (i !== 0) {
+                    stylesheet.insertRule(`.col${i+1} { margin-left: 20px;}`, 0);
+                }
+
+                header.appendChild(p)
+            })
+            
+            if (tableProps.data) {
+                tableProps.data.forEach(shoe => {
+                    // Changes applied to DOM elements are not done immediately, 
+                    // Need to wait for repaint to get correct widths of elements.
+                    requestAnimationFrame(() => {
+                        this.insertRow(shoe)
+                    })
+                })
+            }
+            
+            if (parentElement) {
+                parentElement.appendChild(this.table)
+            } else {
+                document.body.appendChild(this.table)
+            }
         }
 
-        insertRow(shoe) {
 
+        insertRow(shoe, optionalId) {
+            const tableProps = this.tableProps
+            
+            try {
+                insertRowError(shoe, tableProps)
+            } catch (e) {
+                throw e
+            }
+            
             let tableBody = this.table.firstElementChild;
             let row = this.createDivWithClass("table-row")
+            row.draggable = "true"
+            let cellContent = this.createDivWithClass("cellContent")
+            row.appendChild(cellContent)
+            this.rowCount++;
             tableBody.appendChild(row);
-           
-            row.innerHTML = `
-                <div class=cellContent>
-                    <p class="col1">${shoe.sneakerName}</p>
-                    <p class="col2">${shoe.purchaseDate}</p>
-                    <p class="col3">$${shoe.cost}</p>
-                    <p class="col4">$${shoe.salePrice}</p>
-                </div>
-            `
-            const img = document.createElement('img')
-            img.src = "app/result.svg"
-            img.class = "dragIcon"
-            row.appendChild(img)
-
-            for (let i = 1; i < 4; i++) {
+          
+            this.createRowsWithId(optionalId);
+            
+            Object.keys(shoe).forEach((key, i) => {
+                if (key === "img"){
+                    const p = document.createElement("p") 
+                    if (shoe[key] !== "") {
+                        const img = document.createElement("img")
+                        img.classList.add("shoeImage")
+                        img.src = shoe[key]
+                        p.appendChild(img)
+                    }
+                    p.classList.add("col" + (i+1))
+                    cellContent.appendChild(p)
+                } else {
+                    const p = document.createElement("p") 
+                    p.textContent = shoe[key]
+                    
+                    p.classList.add("col" + (i+1))
+                    
+                    cellContent.appendChild(p)
+                }
+            })
+            
+            // Including profits column data
+            if (tableProps.include.profits) {
+                const p = document.createElement("p") 
+                p.textContent = "+" + `${shoe.salePrice - shoe.cost}`
+                p.classList.add("col" + (tableProps.columnTitles.length))
+                cellContent.appendChild(p)
+            }
+            
+            for (let i = 1; i < tableProps.columnTitles.length; i++) {
                 const col = this.table.getElementsByClassName(`col${i}`);
-                let col_minWidth = col[0].offsetWidth
-                let newColCell = col[col.length - 1]
+
+                let col_minWidth = col[0].offsetWidth // column title width
+                let newColCell = col[col.length - 1] // newly added cell width
                 
                 if (newColCell.offsetWidth > col_minWidth) {
                     for (let i = 0; i < col.length; i++) {
@@ -251,18 +397,93 @@ const log = console.log;
                     col[col.length - 1].style.minWidth = `${col_minWidth}px`
                 }
             }
+
+        }
+
+        createRowsWithId(optionalId) {
+            let rows = [...this.table.getElementsByClassName('table-row')]
+            
+            rows.map((row, i) => {
+                if ([...row.getElementsByClassName('rowNum')].length === 0) {
+                   
+                    row.id = optionalId !== undefined ? optionalId : i+1; // Original id's (consistent with original sneakers list indexes)
+                   
+                    const rowNum = document.createElement("p")
+                    rowNum.classList.add("rowNum")
+ 
+                    if (optionalId !== undefined) {
+                        rowNum.textContent = optionalId
+                        
+                        const rowAfter = rows.filter((row) => parseInt(row.id) === parseInt(optionalId) + 1)[0]
+                        const rowBefore = rows.filter((row) => parseInt(row.id) === parseInt(optionalId) - 1)[0]
+                        
+                        const container = this.table.getElementsByClassName('table-body')[0]
+                        requestAnimationFrame(() => {
+                            if (rowAfter !== undefined) {
+                                container.insertBefore(row, rowAfter)
+                            }
+                        })
+                    } else {
+                        rowNum.textContent = i+1
+                    }
+
+                    row.appendChild(rowNum)
+                }
+            })  
+        }
+
+        updateRowsWithId(otherTable) {
+            let rows = [...this.table.getElementsByClassName('table-row')]
+            
+            rows.map((row, i) => {
+                const rowNum = row.getElementsByClassName("rowNum")[0]
+                rowNum.innerHTML = i + 1
+            })
+
+            if (otherTable === null || otherTable === undefined) {
+                return
+            }
+
+            let rows2 = [...otherTable.getElementsByClassName('table-row')]
+           
+            rows2.map((row, i) => {
+                const rowNum = row.getElementsByClassName("rowNum")[0]
+                rowNum.innerHTML = i + 1
+            })
+        }
+
+        deleteRow(rowNum) {
+            let rows = [...this.table.getElementsByClassName('table-row')]
+
+            const rowId = rows[rowNum - 1].id // original row id (not row number)
+            rows[rowNum - 1].remove()
+            rows.splice(rowNum-1, 1)
+
+            this.updateRowsWithId(null)
+
+            return rowId
+        }
+
+        editRow(rowNum, newData) {
+            let rows = [...this.table.getElementsByClassName('table-row')]
+
+            const rowId = rows[rowNum -1].id 
+            const newShoe = this.shoevintory.edited(rowId, newData)
+            rows[rowNum - 1].remove()
+            this.insertRow(newShoe, rowId)
         }
 
         createDivWithClass(className) {
             let div = document.createElement('div');
             div.className = className;
-            div.draggable = "true"
             return div;
         }
 
         makeDraggable() {
-            const rowContainers = document.querySelectorAll('.table-body');
-            const draggables = document.querySelectorAll('.table-row');
+            this.isDraggable = true;
+
+            const rowContainers = this.table.querySelectorAll('.table-body');
+            const draggables = this.table.querySelectorAll('.table-row');
             
             draggables.forEach(row => {
                 row.addEventListener('dragstart', () => {
@@ -273,34 +494,118 @@ const log = console.log;
                 row.addEventListener('dragend', () => {
                     log('done')
                     row.classList.remove('dragging') // remove the class when user is done dragging.
+                    
+                    // After dragging, update row id's
+                    this.updateRowsWithId(row.parentElement)
+                    
+                    console.log(row.parentElement.id)
+                    console.log(row.id)
+
+                    Shoevintory.prototype.updateSneakers.call(this.shoevintory, row.parentElement.id, row.id)
                 })
             })
 
             rowContainers.forEach(container => {
                 // Inside a rows container, execute the callback
                 container.addEventListener('dragover', (e) => {
-                    // log('inside row container') 
                     e.preventDefault()
                     
                     const closestFrontElement = getClosestRowInFront(container, e.clientY)
                     const currentRow = document.querySelector('.dragging') // row currently being dragged
-
+                   
                     if (closestFrontElement == null) {
                         // Being dragged to the bottom
                         container.appendChild(currentRow)
-                    } else { 
+                    } else {
                         container.insertBefore(currentRow, closestFrontElement)
                     }
 
                 })
             })
         }
+
+
+        filterByBrand(brandName, shoes) {
+            // Remove DOM rows.
+            const rows = [...this.table.getElementsByClassName('table-row')]
+            rows.forEach(row => row.remove())
+            
+            // Insert filtered DOM rows.
+            const filteredShoes = shoes.filter(shoe => shoe.brand === brandName)
+            console.log(filteredShoes)
+            filteredShoes.forEach(shoe => {
+                requestAnimationFrame(() => {
+                    this.insertRow(shoe)
+                    if (this.isDraggable) {
+                        this.makeDraggable();
+                    }
+                })
+            })
+
+        }
+
+        // Original shoes for this.sneakers in shoevintory
+        filterReset(shoes) {
+            const rows = [...this.table.getElementsByClassName('table-row')]
+            rows.forEach(row => row.remove())
+
+            shoes.forEach(shoe => {
+                requestAnimationFrame(() => {
+                    this.insertRow(shoe)
+                    if (this.isDraggable) {
+                        this.makeDraggable();
+                    }
+                })
+            })
+        }
+
+        sort(type, ascOrDesc, shoes) {
+            if (type === "salePrice") {
+                const rows = [...this.table.getElementsByClassName('table-row')]
+                rows.forEach(row => {row.remove()})
+
+                if (ascOrDesc === "ascending") {
+                    const sortedByAsc = [...shoes].sort((a, b) => {
+                        return a.salePrice - b.salePrice
+                    })
+
+                    sortedByAsc.forEach(shoe => this.insertRow(shoe))
+                    if (this.isDraggable) { this.makeDraggable() }
+                } else if (ascOrDesc === "descending") {
+                    const sortedByDesc = [...shoes].sort((a, b) => {
+                        return b.salePrice - a.salePrice
+                    })
+
+                    sortedByDesc.forEach(shoe => this.insertRow(shoe))
+                    if (this.isDraggable) { this.makeDraggable() }
+                }
+            } else if (type === "cost") {
+                const rows = [...this.table.getElementsByClassName('table-row')]
+                rows.forEach(row => {row.remove()})
+
+                if (ascOrDesc === "ascending") {
+                    const sortedByAsc = [...shoes].sort((a, b) => {
+                        return a.cost - b.cost
+                    })
+
+                    sortedByAsc.forEach(shoe => this.insertRow(shoe))
+                    if (this.isDraggable) { this.makeDraggable() }
+                } else if (ascOrDesc === "descending") {
+                    const sortedByDesc = [...shoes].sort((a, b) => {
+                        return b.cost - a.cost
+                    })
+
+                    sortedByDesc.forEach(shoe => this.insertRow(shoe))
+                    if (this.isDraggable) { this.makeDraggable() }
+                }
+            }
+        }
         
     }
 
     function getClosestRowInFront(container, y) {
         const draggableRows = [...container.querySelectorAll('.table-row:not(.dragging)')] // every draggable except the one we are dragging
-        
+
         return draggableRows.reduce((closest, child) => {
             const box = child.getBoundingClientRect()
             const offset = y - box.top - box.height / 2 // Center
@@ -316,8 +621,45 @@ const log = console.log;
 
     }
 
+    /******* ERRORS *********/ 
+    /*
+    Shoe is optional (only in insertRow) 
+    */
+
+    const DataColumnsError = new Error("Shoe data length and column titles length must be equal.")
+    
+    function TableInitError(tableProps) {
+        const data = tableProps.data
+        const columnsLength = tableProps.include.profits ? tableProps.columnTitles.length - 1 : tableProps.columnTitles.length
+        
+        if (tableProps.data === undefined || data.length === 0) {
+            return;
+        }
+        
+        data.forEach(shoe => {
+            if (Object.keys(shoe).length !== columnsLength) {
+                throw DataColumnsError
+            }
+        })
+    }
+
+    function insertRowError(shoe, tableProps) {
+        // Required props
+        const validShoeProps = ["salePrice", "cost", "date", "name"]
+        const columnLength = tableProps.include.profits ? tableProps.columnTitles.length - 1 : tableProps.columnTitles.length
+        if (Object.keys(shoe).length !== columnLength) {
+            throw DataColumnsError
+        }
+
+        validShoeProps.map(key => {
+            if (!(key in shoe)) {
+                throw new Error("Required properties of shoe data must match one of " + validShoeProps)
+            }
+        })
+            
+    }
+    
+
     global.Shoevintory = global.Shoevintory || Shoevintory
-    global.Shoe = global.Shoe || Shoe;
+    global.ShoevintoryFactory = global.ShoevintoryFactory || ShoevintoryFactory
 })(window, window.document);
-
-

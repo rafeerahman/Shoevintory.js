@@ -1,0 +1,48 @@
+* {
+    font-family: 'Urbanist', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    background-color: rgb(215, 201, 178);
+    color: rgb(73, 3, 73);
+}
+
+.header-content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    text-align: center;
+    width: 100%;
+}
+
+h1 {
+    font-size: 65px;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 36px;
+    margin-bottom: 10px;
+}
+
+.nav {
+    display: flex;
+    justify-content: center;
+}
+
+a {
+    font-size: 32px;
+    font-weight: normal;
+    margin-right: 20px;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 0.75rem;
+    background-color: white;
+    padding: 8px;
+}
+
+a:hover {
+    box-shadow: 0 0 11px rgba(33,33,33,.5);
+}

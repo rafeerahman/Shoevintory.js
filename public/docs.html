@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="static/docs.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <div class="nav">
+        <li><a href="./home.html">home</a></li>
+        <li><a href="./examples.html">examples</a></li>
+        
+    </div>
+
+    <div class="api-content">
+        <div class="getting-started">
+            <h1>Getting started</h1>
+            <p>To get started, please ensure you have the Shoevintory.js, app.css, and plot.css files in your directory.</p>
+            <p>In your HTML head, include the following</p>
+            <pre>
+                <code>
+                    &lthead&gt
+                        &ltlink href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+                        &ltlink rel="stylesheet" href="static/app.css">
+                        &ltlink rel="stylesheet" href="static/plot.css">
+
+                        &ltscript src="app/Shoevintory.js"/&gt
+                        &ltscript src="app/examples.js"/&gt
+                        &ltscript defer src="app/test.js"/&gt
+                    &lt/head&gt
+                </code>
+            </pre>
+            <p>In a seperate javascript file, you can initialize a new shoevintory (see instructions in API). Then you can use its various methods, and link your new javascript file within your HTML. See more examples in the examples page.</p>
+        </div>
+
+        <div class="header">
+            <h1>API</h1>
+        </div>
+        <div class="content">
+            <h1>ShoeFactory</h1>
+            <div class="method">
+                <h2 class="title">Initialization</h2>
+                <pre>
+                    <code>
+                        const shoevintoryFactory = new ShoevintoryFactory();
+                    </code>
+                </pre>
+                <div class="Properties">
+                    <h3>Properties</h3>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>name</th>
+                            <th>description</th>
+                            <th>type</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>this.instances</td>
+                            <td>An array holding all instances of shoevintories that were created using .create().</td>
+                            <td>Array []</td>
+                        </tr>
+                    </table>
+
+                </div>
+                <div class="Arguments">
+                    <h3>Arguments</h3>
+                    <p>None</p>
+                </div>
+                <div class="description">
+                    <h3>Description</h3>
+                    <p>To initialize a new inventory, you must first create a new ShoeFactory class by typing the above code. Once initialized, this ShoevintoryFactory will have a property called "instances", that will store newly created inventories.</p>
+                </div>
+            </div>
+
+            <div class="method">
+                <h2 class="title">.create()</h2>
+                <pre>
+                    <code>
+                        const shoevintory = shoevintoryFactory.create();
+                    </code>
+                </pre>
+                <div class="Arguments">
+                    <h3>Arguments: None</h3>
+                </div>
+                <div class="Return Type">
+                    <h3>Return type: </h3>
+                    <p>Returns a new Shoevintory object.</p>
+                </div>
+                <div class="description">
+                    <h3>Description</h3>
+                    <p>Use this method to initialize and create a new shoevintory. The instance of the shoevintory object that was created will be returned. This shoevintory instance will be stored in the ShoevintoryFactory's "instances" property.</p>
+                </div>
+            </div>
+
+            <div class="method">
+                <h2 class="get">.get(index)</h2>
+                <pre>
+                    <code>
+                        const shoevintory = shoevintoryFactory.get(0);
+                    </code>
+                </pre>
+                <div class="arguments">
+                    <h3>Arguments:</h3>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>name</th>
+                            <th>description</th>
+                            <th>type</th>
+                            <th>properties</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>index</td>
+                            <td>The index (0 to n of .create() calls) of the shoevintory you want to access.</td>
+                            <td>int</td>
+                            <td>None</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="Return Type">
+                    <h3>Return type: </h3>
+                    <p>Returns a new Shoevintory object.</p>
+                </div>
+                <div class="description">
+                    <h3>Description</h3>
+                    <p>When a shoevintory is created using .create(), that instance is stored in an array. The index of the shoevintory you call on .get() will be returned.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="content">
+            <h1>Shoevintory</h1>
+            <div class="method">
+                <h2 class="title">Intiailization</h2>
+                <pre>
+                    <code>
+                        let shoevintory = shoevintoryFactory.create()
+                        <span class="comment">// returns a new Shoevintory object.</span>
+                    </code>
+                </pre>
+                <div class="Arguments">
+                    <h3>Properties</h3>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>name</th>
+                            <th>description</th>
+                            <th>type</th>
+                            <th>properties</th>
+                        </tr>
+                        <tr>
+                            <td>this.shoevintoryFactory</td>
+                            <td>A reference to the shoevintoryFactory that created this shoevintory instance.</td>
+                            <td>ShoevintoryFactory object</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>this.sneakers</td>
+                            <td>An array of shoe objects that are in this Shoevintory instance. </td>
+                            <td>Array of shoe objects, Array[Shoe object]</td>
+                            <td><a href="#shoeObject">shoe object format</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>this.table</td>
+                            <td>The table inventory belonging to this shoevintory instance.</td>
+                            <td>Table object (private)</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>this.plot</td>
+                            <td>A plot that will help create charts/graphs. </td>
+                            <td>Plot object (private)</td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="return">
+                    <h3>Return type</h3>
+                    <p>Shoevintory object.</p>
+                </div>
+                <div class="Arguments">
+                    <h3>Description</h3>
+                    <p>Properties stored in a shoevintory instance.</p>
+                </div>
+    
+            </div>
+            <div class="method">
+                <h2 class="title">.insertTable(data, parentElement)</h2>
+                <pre>
+                    <code>
+                        <span class="comment">
+                        // Example of initializing data
+                        // The "data array" and "include object" can be left as an empty array and empty object if you want, however I included some data here.
+                        </span>
+                        const data = {
+                            data: [
+                                {
+                                    img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", 
+                                    name: "Air Jordan 1", 
+                                    brand: "Jordan", 
+                                    date: "2022/04/17", 
+                                    cost: 300, 
+                                    salePrice: 340
+                                }
+                            ],
+                            columnTitles: ["Image", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+                            include: {
+                                profits: true,
+                            }
+                        }
+                        shoevintory.insertTable(data)
+                    </code>
+                </pre>
+                <div class="Arguments">
+                    <h3>Arguments</h3>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>name</th>
+                            <th>description</th>
+                            <th>type</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>data</td>
+                            <td>An object holding the initial shoevintory table information.</td>
+                            <td>Object</td>
+                        </tr>
+                        <tr>
+                            <td>parentElement (optional)</td>
+                            <td>The parent element node to append the table into. If no parentElement is given, the table will be appended into the HTML Body.</td>
+                            <td>DOM Node</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="Properties">
+                    <h3>Properties</h3>
+                    <p class="propTitle" >Argument 1 (data) format</p>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>property name</th>
+                            <th>description</th>
+                            <th>type</th>
+                            <th>properties</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>data (*required)</td>
+                            <td>An object holding the initial shoevintory shoe data.</td>
+                            <td>Array of <b>shoe objects</b>, [Object]</td>
+                            <td><a class="propLink" href="#shoeObject">shoe object format</a></td>
+                        </tr>
+
+                        <tr>
+                            <td>columnTitles (*required)</td>
+                            <td>An array of static titles in the order of each shoe property. The length of column titles array and the length of a shoe object <b>must be equal.</b></td>
+                            <td>Array of strings, [String]</td>
+                            <td></td>
+                        </tr>
+
+                        <tr>
+                            <td>include (*required)</td>
+                            <td>An object of properties to include (see include object format).</td>
+                            <td>Object</td>
+                            <td><a class="propLink" href="#includeObject">include object format</a></td>
+                        </tr>
+                    </table>
+                    <p class="propTitle" id="shoeObject">shoe object format</p>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>property name</th>
+                            <th>description</th>
+                            <th>type</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>name (*required)</td>
+                            <td>The name of the shoe.</td>
+                            <td>String</td>
+                        </tr>
+                        <tr>
+                            <td>date (*required)</td>
+                            <td>The date the shoe was acquired.</td>
+                            <td>String</td>
+                        </tr>
+                        <tr>
+                            <td>brand (*required)</td>
+                            <td>The name of the shoe's brand.</td>
+                            <td>String</td>
+                        </tr>
+                        <tr>
+                            <td>cost (*required)</td>
+                            <td>The amount that was paid for the shoe.</td>
+                            <td>int</td>
+                        </tr>
+                        <tr>
+                            <td>salePrice (*required)</td>
+                            <td>The price that the shoe was sold for.</td>
+                            <td>int</td>
+                        </tr>
+                        <tr>
+                            <td> <i>any</i></td>
+                            <td>Include any other properties that you want to include in the table. Ensure that you give appropriate column titles for any seperate properties.</td>
+                            <td>any</td>
+                        </tr>
+                    </table>
+                    <p class="propTitle" id="includeObject">"include" object format</p>
+                    <table class="argumentsTable">
+                        <tr>
+                            <th>property name</th>
+                            <th>description</th>
+                            <th>type</th>
+                        </tr>
+                        
+                        <tr>
+                            <td>profits</td>
+                            <td>Set to either true or false.</td>
+                            <td>boolean</td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="return">
+                    <h3>Return type </h3>
+                    <p>None</p>
+                </div>
+                <div class="description">
+                    <h3>Description: </h3>
+                    <p>After creating a shoevintory, you can insert a new table with the specified data format as seen above. The table DOM element can be accessed via .getTable(). </p>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="method">
+            <h2 class="title">.insertRow(shoe)</h2>
+            <pre>
+                <code>
+                    const shoe = {
+                        img: " ",
+                        name: "Nike Dunk Low Black/White", 
+                        brand: "Nike", 
+                        date: "2022/04/17", 
+                        cost: 220, 
+                        salePrice: 325
+                    }
+                    shoevintory.insertRow(shoe)
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <table class="argumentsTable">
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>type</th>
+                        <th>properties</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>shoe</td>
+                        <td>An object matching the "shoe object" format.</td>
+                        <td>Object</td>
+                        <td><a href="#shoeObject">shoe object format</a></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="Arguments">
+                <h3>Description</h3>
+                <p>Use this method to insert a new shoe into your shoevintory and the DOM. </p>
+            </div>
+
+        </div>
+
+        <div class="method">
+            <h2 class="title">.deleteRow(rowId)</h2>
+            <pre>
+                <code>
+                    shoevintory.deleteRow(1)
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <table class="argumentsTable">
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>type</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>rowId</td>
+                        <td>The row number seen in the DOM's shoevintory table.</td>
+                        <td>int</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="Arguments">
+                <h3>Description</h3>
+                <p>Removes a shoe from the shoevintory and the DOM.</p>
+            </div>
+
+        </div>
+
+        <div class="method">
+            <h2 class="title">.editRow(rowId, newShoeData)</h2>
+            <pre>
+                <code>
+                    shoevintory.editRow(1, {name: "foo"})
+                    <span class="comment">// This will edit the sneaker's name at row 1 to "foo".</span>
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <table class="argumentsTable">
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>type</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>rowId</td>
+                        <td>The row number seen in the DOM's shoevintory table.</td>
+                        <td>int</td>
+                    </tr>
+
+                       
+                    <tr>
+                        <td>newShoeData</td>
+                        <td>An object with any properties that match the <span><a href="#shoeObject">shoe object's format.</a></span></td>
+                        <td>Object</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Edit a shoes properties at a specific row.</p>
+            </div>
+
+        </div>
+
+        <div class="method">
+            <h2 class="title">.makeDraggable()</h2>
+            <pre>
+                <code>
+                    shoevintory.makeDraggable()
+                    <span class="comment">// This will allow every row to become draggable.</span>
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Makes every row within the shoevintory draggable. This allows a user to swap rows at different places.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.filterByBrand(brandName)</h2>
+            <pre>
+                <code>
+                    shoevintory.filterByBrand("Adidas")
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <table class="argumentsTable">
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>type</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>brandName</td>
+                        <td>The name of the brand you want to filter the table by.</td>
+                        <td>String</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Filters the table so that only the rows that have the brandName are shown.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.filterReset()</h2>
+            <pre>
+                <code>
+                    shoevintory.filterReset()
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Removes the filter or sorted rows and returns back to its original table.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.sortBySalePrice(order)</h2>
+            <pre>
+                <code>
+                    shoevintory.sortBySalePrice(order)
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <table class="argumentsTable">
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>type</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>order</td>
+                        <td>Must be either "ascending" or "descending"</td>
+                        <td>String</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Sorts the shoevintory table in the DOM by the sale price, in either ascending or descending format depending on what was specified.</p>
+            </div>
+        </div>
+
+
+        <div class="method">
+            <h2 class="title">.sortByCost(order)</h2>
+            <pre>
+                <code>
+                    shoevintory.sortByCost(order)
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <table class="argumentsTable">
+                    <tr>
+                        <th>name</th>
+                        <th>description</th>
+                        <th>type</th>
+                    </tr>
+                    
+                    <tr>
+                        <td>order</td>
+                        <td>Must be either "ascending" or "descending"</td>
+                        <td>String</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Sorts the shoevintory table in the DOM by the cost, in either ascending or descending format depending on what was specified.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.totalSales()</h2>
+            <pre>
+                <code>
+                    shoevintory.totalSales()
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>int</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Returns the total sales sum in the shoevintory table.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.totalProfits()</h2>
+            <pre>
+                <code>
+                    shoevintory.totalProfits()
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>int</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Returns the total profits sum in the shoevintory table.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.totalInventory()</h2>
+            <pre>
+                <code>
+                    shoevintory.totalInventory()
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>int</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Returns the total inventory in the shoevintory table.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.totalSpendings()</h2>
+            <pre>
+                <code>
+                    shoevintory.totalSpendings()
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>int</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Returns the total spendings in the shoevintory table.</p>
+            </div>
+        </div>
+
+        <div class="method">
+            <h2 class="title">.chartSalesVsSpendings()</h2>
+            <pre>
+                <code>
+                    shoevintory.chartSalesVsSpendings()
+                </code>
+            </pre>
+            <div class="Arguments">
+                <h3>Arguments</h3>
+                <p>None</p>
+            </div>
+            <div class="return">
+                <h3>Return type</h3>
+                <p>None</p>
+            </div>
+            <div class="desc">
+                <h3>Description</h3>
+                <p>Inserts a new chart plotting the shoe costs, and shoe sales for a visual representation.</p>
+            </div>
+        </div>
+</body>
+</html>

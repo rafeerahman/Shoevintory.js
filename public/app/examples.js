@@ -1,89 +1,214 @@
 'use strict'
 
-let shoevintory = new Shoevintory();
+// shoeData = {data: [{shoe1}, {shoe2}], columnTitles: ["Sneaker", "Date Purchased", "Cost", "Sale price"], includeProfitColumn: true}
 
-document.body.innerHTML += `
-    <br>
-    <h2>Insert and initialize a custom table, with static headers (custom headers coming soon)</h2>
-    <pre>
-        <code>
-            shoevintory.insertTable();
-        </code>
-    </pre>
-`
-shoevintory.insertTable();
+let shoevintoryFactory = new ShoevintoryFactory();
 
-document.body.innerHTML += `
-    <br>
-    <h2>Insert a row into the table</h2>
-    <pre>
-        <code>
-            shoevintory.insertRow(new Shoe("Air Jordan 1", "2022/01/01", 255, 320));
-            shoevintory.insertRow(new Shoe("Nike Dunk Low UNC", "2022/02/01", 155, 250));
-            shoevintory.insertRow(new Shoe("Adidas Yeezy 350 Black", "2022/02/01", 305, 420));
-            shoevintory.insertRow(new Shoe("Air Jordan 4 Black", "2022/03/01", 265, 370));
-        </code>
-    </pre>
-`
-let shoevintory2 = new Shoevintory();
-shoevintory2.insertTable();
-shoevintory2.insertRow(new Shoe("Air Jordan 1", "2022/01/01", 255, 300));
-shoevintory2.insertRow(new Shoe("Nike Dunk Low UNC", "2022/02/01", 155, 250));
-shoevintory2.insertRow(new Shoe("Adidas Yeezy 350 Black", "2022/02/01", 305, 280));
-shoevintory2.insertRow(new Shoe("Air Jordan 4 Black", "2022/03/01", 265, 370));
+let shoevintory = shoevintoryFactory.create();
+let shoevintory2 = shoevintoryFactory.create();
+let shoevintory3 = shoevintoryFactory.create();
+let shoevintory4 = shoevintoryFactory.create();
+let shoevintory5 = shoevintoryFactory.create();
+let shoevintory6 = shoevintoryFactory.create();
+let shoevintory7 = shoevintoryFactory.create();
+let shoevintory8 = shoevintoryFactory.create();
 
-document.body.innerHTML += `
+function initializeTable() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example1")
+    shoevintory.insertTable(data, exampleElement)
+
+}
+
+function insertRowExample() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example2")
+    shoevintory2.insertTable(data, exampleElement)
+
+    shoevintory2.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+}
+
+function example3() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example3")
+    shoevintory3.insertTable(data, exampleElement)
+
+    shoevintory3.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+    shoevintory3.makeDraggable();
+}
+
+
+function example4() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example4")
+    shoevintory4.insertTable(data, exampleElement)
+
+    shoevintory4.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+    shoevintory4.makeDraggable();
+}
+
+function deleteRowEx4(num) {
+    shoevintory4.deleteRow(num)
+}
+
+function example5() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example5")
+    shoevintory5.insertTable(data, exampleElement)
+
+    shoevintory5.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+    shoevintory5.makeDraggable();
     
-    <h2>Calculate various statistics</h2>
-    <pre>
-        <code>
-            console.log(shoevintory.totalSpendings());
-            console.log(shoevintory.totalInventory());
-            console.log(shoevintory.totalSales());
-        </code>
-    </pre>
-`
+}
 
-document.body.innerHTML += `
-    <br>
-    <h2>Make the rows draggable. Then, drag the row to another row in the same shoeventory. 
-        <br/>Alternatively, I have initialized another shoevintory to the right. You can drag a row from shoevintory on the left here, vice versa.
-        <br/> Also create a plot of spendings and sales based on your shoevintory. Hover over a circle to view the data information.
-        </h2>
-    <pre>
-        <code>
-            shoevintory.table.makeDraggable();
-            // let shoevintory2 = new Shoevintory();
-            // shoevintory2.insertTable();
-            // ...
-            // shoevintory2.makeDraggable();
-            // Now you can drag from table 1 to table 2
-            
-            // Create a plot
-            shoevintory.chartSpendingsAndProfits()
-        </code>
-    </pre>
-`
-let shoevintory3 = new Shoevintory();
-shoevintory3.insertTable();
-shoevintory3.insertRow(new Shoe("Air Jordan 1", "2022/01/01", 255, 320));
-shoevintory3.insertRow(new Shoe("Nike Dunk Low UNC", "2022/02/01", 155, 250));
-shoevintory3.insertRow(new Shoe("Adidas Yeezy 350 Black", "2022/02/01", 305, 420));
+function editRowEx5() {
+    shoevintory5.editRow(2, {img: "https://assets.adidas.com/images/w_600,f_auto,q_auto/3f8e50935dfd46ce81d5ac5500919520_9366/Ultraboost_4.0_DNA_Shoes_White_FY9122_01_standard.jpg"});
+}
 
-let shoevintory4 = new Shoevintory();
-shoevintory4.insertTable();
-shoevintory4.insertRow(new Shoe("Air Jordan 1", "2022/01/01", 255, 320));
-shoevintory4.insertRow(new Shoe("Nike Dunk Low UNC", "2022/02/01", 155, 250));
-shoevintory3.table.makeDraggable();
-shoevintory4.table.makeDraggable();
+function example6() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example6")
+    shoevintory6.insertTable(data, exampleElement)
 
-// shoevintory.insertRow(new Shoe("Nike Dunk Low Panda", "2022/30/22", 150, 255));
+    shoevintory6.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+    shoevintory6.makeDraggable();
+    
+}
 
-// document.body.innerHTML += `
-//     <div>
-//     <h2>Create a plot of spendings and sales based on your shoevintory.
-//     Hover over a circle to view the data information. </h2>
-//     </div>
-// `
+function totalSalesEx6(e) {
+    const newDiv = document.createElement('p')
+    newDiv.textContent = shoevintory6.totalSales()
+    e.insertAdjacentElement("afterend", newDiv)
+}
 
-shoevintory2.chartSpendingsAndProfits()
+function totalSpendingsEx6(e) {
+    const newDiv = document.createElement('p')
+    newDiv.textContent = shoevintory6.totalSpendings()
+    e.insertAdjacentElement("afterend", newDiv)
+}
+
+function totalInventoryEx6(e) {
+    const newDiv = document.createElement('p')
+    newDiv.textContent = shoevintory6.totalInventory()
+    e.insertAdjacentElement("afterend", newDiv)
+}
+
+function totalProfitsEx6(e) {
+    const newDiv = document.createElement('p')
+    newDiv.textContent = shoevintory6.totalProfits()
+    e.insertAdjacentElement("afterend", newDiv)
+}
+
+
+function example7() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example7")
+    shoevintory7.insertTable(data, exampleElement)
+
+    shoevintory7.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+    shoevintory7.insertRow({img: "", name: "Adidas Yeezy", brand: "Adidas", date: "2022/01/01", cost: 265, salePrice: 320})
+    shoevintory7.makeDraggable();
+}
+
+function filterEx7() {
+    shoevintory7.filterByBrand("Adidas")
+
+}
+
+function sortBySaleAscEx7() {
+    shoevintory7.sortBySalePrice("ascending")
+}
+
+function sortBySaleDescEx7() {
+    shoevintory7.sortBySalePrice("descending")
+}
+
+function sortByCostAscEx7() {
+    shoevintory7.sortByCost("ascending")
+}
+
+function sortByCostDescEx7() {
+    shoevintory7.sortByCost("descending")
+}
+
+function filterResetEx7() {
+    shoevintory7.filterReset()
+}
+
+function example8() {
+    const data = {
+        data: [
+            {img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", name: "Air Jordan 1", brand: "Jordan", date: "2022/04/17", cost: 300, salePrice: 340},
+        ],
+        columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+        include: {
+            profits: true,
+        }
+    }
+    const exampleElement = document.getElementById("example8")
+    shoevintory8.insertTable(data, exampleElement)
+
+    shoevintory8.insertRow({img: "", name: "Ultraboosts", brand: "Adidas", date: "2022/01/01", cost: 255, salePrice: 300})
+    shoevintory8.insertRow({img: "", name: "Adidas Yeezy", brand: "Adidas", date: "2022/01/01", cost: 265, salePrice: 320})
+    shoevintory8.makeDraggable();
+}
+
+function chartEx8() {
+    shoevintory8.chartSalesVsSpendings();
+}

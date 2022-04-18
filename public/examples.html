@@ -8,19 +8,198 @@
     <link href="https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="static/app.css">
     <link rel="stylesheet" href="static/plot.css">
+    <link rel="stylesheet" href="static/examples.css">
 
-    <script defer src="app/Shoevintory.js"></script>
-    <script defer src="app/examples.js"></script>
+    <script src="app/Shoevintory.js"></script>
+    <script src="app/examples.js"></script>
 </head>
 <body>
-    <h1>shoevintory.js</h1>
-    <br>
-    <h2>Initialize an inventory</h2>
-    <pre>
-        <code>
-            const shoevintory = new Shoevintory();
-        </code>
-    </pre>
 
+    <div class="nav">
+        <li><a href="./home.html">home</a></li>
+        <li><a href="./docs.html">docs</a></li>
+    </div>
+    <br>
+
+    <div id="example1" class="example">
+        <h2>Initialize an inventory</h2>
+        <pre>
+            <code>
+                let shoevintoryFactory = new ShoevintoryFactory();
+                let shoevintory = shoevintoryFactory.create();
+                
+                
+                const data = {
+                    data: [
+                        {
+                            img: "https://images.stockx.com/images/Air-Jordan-1-Retro-High-White-University-Blue-Black-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1611777406", 
+                            name: "Air Jordan 1", 
+                            brand: "Jordan", 
+                            date: "2022/04/17", 
+                            cost: 300, 
+                            salePrice: 340},
+                    ],
+                    columnTitles: ["", "Sneaker name", "Brand", "Date purchased", "Cost", "Sale price"],
+                    include: {
+                        profits: true,
+                    }
+                }
+                const exampleElement = document.getElementById("example1")
+                shoevintory.insertTable(data, exampleElement)
+                
+            </code>
+        </pre>
+        <div class="test">
+            <script>initializeTable();</script>
+        </div>
+    </div>
+
+    <div id="example2" class="example">
+        <h2>Insert a new row</h2>
+        <pre>
+            <code>
+                <span class="comment">// Continuing from previous example</span> 
+                shoevintory.insertRow({
+                    img: "", 
+                    name: "Ultraboosts", 
+                    brand: "Adidas", 
+                    date: "2022/01/01", 
+                    cost: 255, 
+                    salePrice: 300
+                })
+            </code>
+        </pre>
+        <div class="test">
+            <script>insertRowExample()</script>
+        </div>
+    </div>
+
+    <div id="example3" class="example">
+        <h2>Make the table draggable.</h2>
+        <pre>
+            <code>
+                <span class="comment">
+                // Continuing from previous example
+                // Drag a row up or down to change its position.
+                </span> 
+                shoevintory.makeDraggable();
+            </code>
+        </pre>
+        <div class="test">
+            <script>example3()</script>
+        </div>
+    </div>
+
+    <div id="example4" class="example">
+        <h2>Delete a row</h2>
+        <pre>
+            <code>
+                <span class="comment">
+                // Continuing from previous example
+                // Delete a row by its position number, seen on the left of a row.
+                </span> 
+                shoevintory.deleteRow(2);
+            </code>
+        </pre>
+        <div class="test">
+            <script>example4()</script>
+        </div>
+        <div class="deleteBtnContainer">
+            <button class="btnExample" onClick={deleteRowEx4(2)}>Click here to delete row 2</button>
+        </div>
+    </div>
+
+    <div id="example5" class="example">
+        <h2>Edit a row</h2>
+        <pre>
+            <code>
+                <span class="comment">
+                // Continuing from previous example
+                </span> 
+                shoevintory.editRow(2, {img: "https://assets.adidas.com/images/w_600,f_auto,q_auto/3f8e50935dfd46ce81d5ac5500919520_9366/Ultraboost_4.0_DNA_Shoes_White_FY9122_01_standard.jpg"});
+            </code>
+        </pre>
+        <div class="test">
+            <script>example5()</script>
+        </div>
+        <div class="deleteBtnContainer">
+            <button class="btnExample" onClick={editRowEx5()}>Click here to edit row 2</button>
+        </div>
+    </div>
+
+
+    <div id="example6" class="example">
+        <h2>View total sales, spendings, inventory, and profits.</h2>
+        <pre>
+            <code>
+                <span class="comment">
+                // Continuing from previous example
+                </span> 
+                shoevintory.totalSales();
+                shoevintory.totalSpendings();
+                shoevintory.totalInventory();
+                shoevintory.totalProfits();
+            </code>
+        </pre>
+        <div class="test">
+            <script>example6()</script>
+        </div>
+        <div class="deleteBtnContainer">
+            <button class="btnExample" onClick={totalSalesEx6(this)}>View total sales</button>
+            <button class="btnExample" onClick={totalSpendingsEx6(this)}>View total spendings</button>
+            <button class="btnExample" onClick={totalInventoryEx6(this)}>View total inventory</button>
+            <button class="btnExample" onClick={totalProfitsEx6(this)}>View total profits</button>
+        </div>
+        
+        <h3><u>Dragging between seperate inventories feature:</u></h3>
+        <h3>You can try dragging a row from the inventory in the "Edit a row" section into this inventory. The state of the inventory will update with the correct shoes and rows.</h3>
+        <br/>
+    </div>
+
+    <div id="example7" class="example">
+        <h2>Filters/Sorting Methods</h2>
+        <pre>
+            <code>
+                <span class="comment">
+                // Continuing from previous example
+                </span> 
+                shoevintory.filterByBrand("Adidas")
+                shoevintory.sortBySalePrice("ascending")
+                shoevintory.sortBySalePrice("descending")
+                shoevintory.sortByCost("ascending")
+                shoevintory.sortByCost("descending")
+                shoevintory.filterReset()
+            </code>
+        </pre>
+        <div class="test">
+            <script>example7()</script>
+        </div>
+        <div class="deleteBtnContainer">
+            <button class="btnExample" onClick={filterEx7()}>Filter by adidas</button>
+            <button class="btnExample" onClick={sortBySaleAscEx7()}>Sort by sale price (asc)</button>
+            <button class="btnExample" onClick={sortBySaleDescEx7()}>Sort by sale price (desc)</button>
+            <button class="btnExample" onClick={sortByCostAscEx7()}>Sort by cost (asc)</button>
+            <button class="btnExample" onClick={sortByCostDescEx7()}>Sort by cost (desc)</button>
+            <button class="btnExample" onClick={filterResetEx7()}>Reset filter</button>
+        </div>
+    </div>
+
+    <div id="example8" class="example">
+        <h2>Chart using SVG elements. Hover over a point to see the values.</h2>
+        <pre>
+            <code>
+                <span class="comment">
+                // Continuing from previous example
+                </span> 
+                shoevintory.chartSalesVsSpendings();
+            </code>
+        </pre>
+        <div class="test">
+            <script>example8()</script>
+        </div>
+        <div class="deleteBtnContainer">
+            <button class="btnExample" onClick={chartEx8()}>Show chart</button>
+        </div>
+    </div>
 </body>
 </html>

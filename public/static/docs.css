@@ -1,0 +1,132 @@
+* {
+    font-family: 'Urbanist', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    color: rgb(73, 3, 73);
+}
+
+body {
+    background-color: rgb(215, 201, 178);
+}
+
+.getting-started {
+    margin-top: 20px;
+}
+
+pre code {
+    background-color: rgb(58, 52, 52);
+    border: 1px solid #999;
+    display: block;
+    padding: 20px;
+    width: 100%;
+    margin: 0 auto;
+    color: rgb(26, 192, 26);
+    overflow-x: auto;
+}
+
+.comment {
+    color: grey;
+}
+
+.api-content {
+    padding-left: 100px;
+    padding-right: 100px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+}
+
+.content h1 {
+    text-align: center;
+}
+
+.method {
+    border-radius: 0.75rem;
+    padding: 10px;
+    background-color: rgb(202, 193, 193);
+    margin-bottom: 20px;
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+
+.propLink {
+    background-color: none;
+
+}
+
+.propTitle {
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+#shoeObject {
+    display: inline-block;
+    -webkit-transition: all 0.25s linear;
+}
+
+#shoeObject:target {
+    background-color: #ffa;
+}
+
+#includeObject {
+    display: inline-block;
+    -webkit-transition: all 0.25s linear;
+}
+
+#includeObject:target {
+    background-color: #ffa;
+
+}
+
+
+span.argumentName {
+    margin-left: 25px;
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(122, 9, 122)
+}
+
+span.argDesc {
+    font-size: 16px;
+    font-weight: 600;
+    color: rgb(122, 9, 122)
+}
+.method .title {
+    text-decoration: underline;
+}
+
+.nav {
+    display: flex;
+    justify-content: end;
+    width: 100%;
+    background-color: rgb(73, 3, 73);
+    border-bottom: 1px solid black;
+    padding: 25px;
+}
+.nav li {
+    text-decoration: none;
+    margin-right: 25px;
+    list-style-type: none;
+}
+
+.nav li a {
+    font-size: 26px;
+    text-decoration: none;
+    background-color: rgb(73, 3, 73);
+    color: rgb(215, 201, 178);
+}
+
+.nav li a:hover {
+    background-color: rgb(122, 9, 122);
+}
