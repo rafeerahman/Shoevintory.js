@@ -4,7 +4,9 @@
 
 ## Documentation: https://aqueous-garden-18819.herokuapp.com/docs.html
 
-## Description: This is a small Javascript library that was made to help create frontend inventories for people who might sell or collect sneakers. 
+## Description: 
+
+This is a small Javascript library that was made to help create frontend inventories for people who might sell or collect sneakers. 
 
 ## Getting started
 
