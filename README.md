@@ -4,6 +4,8 @@
 
 ## Documentation: https://aqueous-garden-18819.herokuapp.com/docs.html
 
+## Description: This is a small Javascript library that was made to help create frontend inventories for people who might sell or collect sneakers. 
+
 ## Getting started
 
 To get started, please ensure you have the Shoevintory.js, app.css, and plot.css files in your directory.
