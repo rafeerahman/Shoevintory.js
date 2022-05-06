@@ -3,7 +3,7 @@ const log = console.log;
 
 
 (function (global, document) {
-    const styleSheet = document.createElement('style')
+    const styleSheet = document.createElement('style1')
     document.head.appendChild(styleSheet)
 
     function ShoevintoryFactory() {
@@ -373,13 +373,15 @@ const log = console.log;
             }
             
             for (let i = 1; i < tableProps.columnTitles.length; i++) {
+                console.log('test')
                 const col = this.table.getElementsByClassName(`col${i}`);
-
+                console.log(col)
                 let col_minWidth = col[0].offsetWidth // column title width
                 let newColCell = col[col.length - 1] // newly added cell width
                 
                 if (newColCell.offsetWidth > col_minWidth) {
                     for (let i = 0; i < col.length; i++) {
+                        console.log(col[i].style)
                         col[i].style.minWidth = `${newColCell.offsetWidth}px`
                     }
                 } else {
