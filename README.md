@@ -8,6 +8,8 @@
 
 This is a small Javascript library that was made to help create frontend inventories for people who might sell or collect sneakers. 
 
+Example use-case sketch: https://drive.google.com/file/d/1Qqy79AA0lGVbaNkrSDCA27UEFnufYG5-/view?usp=sharing
+
 ## Getting started
 
 To get started, please ensure you have the Shoevintory.js, app.css, and plot.css files in your directory.
